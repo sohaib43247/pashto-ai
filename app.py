@@ -1,10 +1,26 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from deep_translator import GoogleTranslator
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def home():
-    return render_template("index.html")
+
+    translated_text = ""
+
+    if request.method == "POST":
+
+        user_text = request.form["text"]
+
+        translated_text = GoogleTranslator(
+            source='auto',
+            target='ps'
+        ).translate(user_text)
+
+    return render_template(
+        "index.html",
+        translated_text=translated_text
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
