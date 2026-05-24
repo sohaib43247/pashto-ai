@@ -10,14 +10,14 @@ def home():
 
     if request.method == "POST":
 
-        user_text = request.form.get("text")
+        text = request.form.get("text")
 
-        if user_text:
+        if text:
 
             translated_text = GoogleTranslator(
-                source='auto',
-                target='ps'
-            ).translate(user_text)
+                source="auto",
+                target="ps"
+            ).translate(text)
 
     return render_template(
         "index.html",
