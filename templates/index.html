@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pashto AI Translator</title>
 
     <style>
+
         body{
             background:#0f172a;
             font-family:Arial;
@@ -18,50 +20,32 @@
 
         .container{
             width:700px;
-            text-align:center;
+            background:#1e293b;
+            padding:30px;
+            border-radius:20px;
         }
 
         h1{
+            text-align:center;
             color:#38bdf8;
-            margin-bottom:20px;
         }
 
-        .lang-box{
-            display:flex;
-            justify-content:space-between;
-            margin-bottom:10px;
-        }
-
-        select{
-            padding:10px;
-            border-radius:8px;
-            border:none;
-            font-size:16px;
+        label{
+            font-size:18px;
         }
 
         textarea{
             width:100%;
-            height:150px;
-            border-radius:12px;
+            height:140px;
             border:2px solid #38bdf8;
+            border-radius:12px;
             padding:15px;
             font-size:18px;
-            margin-bottom:15px;
-            resize:none;
+            margin-top:10px;
+            margin-bottom:20px;
         }
 
-        .swap-btn{
-            background:#38bdf8;
-            color:white;
-            border:none;
-            padding:10px 20px;
-            border-radius:10px;
-            cursor:pointer;
-            font-size:20px;
-            margin-bottom:15px;
-        }
-
-        .translate-btn{
+        button{
             background:#06b6d4;
             color:white;
             border:none;
@@ -69,13 +53,10 @@
             border-radius:10px;
             font-size:18px;
             cursor:pointer;
-            margin-top:10px;
         }
 
-        .translate-btn:hover{
-            background:#0891b2;
-        }
     </style>
+
 </head>
 
 <body>
@@ -84,67 +65,29 @@
 
     <h1>Pashto AI Translator</h1>
 
-    <div class="lang-box">
-        <select id="fromLang">
-            <option>English</option>
-            <option>Urdu</option>
-            <option>Roman Urdu</option>
-            <option>Pashto</option>
-        </select>
+    <form method="POST">
 
-        <select id="toLang">
-            <option>Pashto</option>
-            <option>English</option>
-            <option>Urdu</option>
-        </select>
-    </div>
+        <label>English / Urdu Input</label>
 
-    <textarea id="inputText" placeholder="Write text here..."></textarea>
+        <textarea
+            name="text"
+            placeholder="Write here..."
+        ></textarea>
 
-    <button class="swap-btn" onclick="swapLanguages()">⇅ Swap</button>
+        <button type="submit">
+            Translate
+        </button>
 
-    <textarea id="outputText" placeholder="Translated text..." readonly></textarea>
+    </form>
 
-    <br>
+    <br><br>
 
-    <button class="translate-btn" onclick="translateText()">
-        Translate
-    </button>
+    <label>Translated Output</label>
+
+    <textarea readonly>{{ translated_text }}</textarea>
 
 </div>
 
-<script>
-
-function swapLanguages(){
-
-    let from = document.getElementById("fromLang");
-    let to = document.getElementById("toLang");
-
-    let temp = from.value;
-    from.value = to.value;
-    to.value = temp;
-
-    let input = document.getElementById("inputText").value;
-    let output = document.getElementById("outputText").value;
-
-    document.getElementById("inputText").value = output;
-    document.getElementById("outputText").value = input;
-}
-
-function translateText(){
-
-    let text = document.getElementById("inputText").value;
-
-    if(text.trim() == ""){
-        alert("Please write something");
-        return;
-    }
-
-    document.getElementById("outputText").value =
-        "Translated: " + text;
-}
-
-</script>
-
 </body>
+
 </html>

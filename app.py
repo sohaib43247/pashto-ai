@@ -16,7 +16,7 @@ def home():
 
             translated_text = GoogleTranslator(
                 source='auto',
-                target='ps'
+                target='ur'
             ).translate(text)
 
     return render_template(
