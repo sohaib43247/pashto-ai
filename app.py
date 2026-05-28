@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-from deep_translator import GoogleTranslator
 
 app = Flask(__name__)
 
@@ -12,12 +11,7 @@ def home():
 
         text = request.form.get("text")
 
-        if text:
-
-            translated_text = GoogleTranslator(
-                source="auto",
-                target="ps"
-            ).translate(text)
+        translated_text = "Translated Text: " + text
 
     return render_template(
         "index.html",
