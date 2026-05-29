@@ -1,96 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>Pashto AI Translator</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pashto AI</title>
 
     <style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, sans-serif;
-        }
-
         body{
             background:#0f172a;
-            min-height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            padding:20px;
+            color:white;
+            font-family:Arial;
+            padding:40px;
         }
 
         .container{
-            width:700px;
-            background:#111827;
-            padding:30px;
-            border-radius:20px;
-            box-shadow:0 0 25px rgba(0,0,0,0.5);
-        }
-
-        h1{
-            text-align:center;
-            color:#38bdf8;
-            margin-bottom:30px;
-            font-size:40px;
-        }
-
-        .lang-box{
-            margin-bottom:20px;
-        }
-
-        .lang-title{
-            color:white;
-            font-size:18px;
-            margin-bottom:10px;
-            font-weight:bold;
-        }
-
-        select{
-            width:100%;
-            padding:12px;
-            border:none;
-            border-radius:10px;
-            margin-bottom:10px;
-            font-size:16px;
-            outline:none;
+            max-width:700px;
+            margin:auto;
         }
 
         textarea{
             width:100%;
             height:160px;
+            margin-top:10px;
+            margin-bottom:20px;
             border:none;
-            border-radius:12px;
+            border-radius:10px;
             padding:15px;
-            font-size:17px;
-            resize:none;
-            outline:none;
-        }
-
-        .buttons{
-            display:flex;
-            gap:15px;
-            margin-top:20px;
+            font-size:18px;
         }
 
         button{
-            flex:1;
+            width:100%;
             padding:15px;
             border:none;
-            border-radius:12px;
-            background:#38bdf8;
+            border-radius:10px;
+            background:#2563eb;
             color:white;
-            font-size:18px;
+            font-size:20px;
             cursor:pointer;
-            transition:0.3s;
         }
 
-        button:hover{
-            background:#0ea5e9;
+        h1{
+            text-align:center;
         }
 
     </style>
@@ -99,147 +52,31 @@
 
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <h1>Pashto AI Translator</h1>
+    <h1>Pashto AI Translator</h1>
 
-        <!-- TOP BOX -->
+    <form method="POST">
 
-        <div class="lang-box">
+        <h3>Input Language</h3>
 
-            <div class="lang-title">Input Language</div>
+        <textarea
+            name="text"
+            placeholder="Write English, Urdu or Roman Urdu"
+        ></textarea>
 
-            <select id="sourceLang">
-                <option value="en">English</option>
-                <option value="ps">Pashto</option>
-                <option value="ur">Urdu</option>
-                <option value="ar">Arabic</option>
-            </select>
+        <button type="submit">
+            Translate To Pashto
+        </button>
 
-            <textarea
-                id="inputText"
-                placeholder="Write text here..."
-            ></textarea>
+    </form>
 
-        </div>
+    <h3>Pashto Translation</h3>
 
+    <textarea readonly>{{ translated_text }}</textarea>
 
-
-        <!-- BOTTOM BOX -->
-
-        <div class="lang-box">
-
-            <div class="lang-title">Output Language</div>
-
-            <select id="targetLang">
-                <option value="ps">Pashto</option>
-                <option value="en">English</option>
-                <option value="ur">Urdu</option>
-                <option value="ar">Arabic</option>
-            </select>
-
-            <textarea
-                id="outputText"
-                placeholder="Translated text..."
-                readonly
-            ></textarea>
-
-        </div>
-
-
-
-        <!-- BUTTONS -->
-
-        <div class="buttons">
-
-            <button onclick="swapLanguages()">
-                Swap
-            </button>
-
-            <button onclick="translateText()">
-                Translate
-            </button>
-
-        </div>
-
-    </div>
-
-
-
-<script>
-
-async function translateText(){
-
-    let text = document.getElementById("inputText").value;
-
-    let sourceLang = document.getElementById("sourceLang").value;
-
-    let targetLang = document.getElementById("targetLang").value;
-
-    if(text.trim() === ""){
-
-        alert("Please write something");
-
-        return;
-    }
-
-    try{
-
-        let response = await fetch(
-            `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}`
-        );
-
-        let data = await response.json();
-
-        document.getElementById("outputText").value = data[0][0][0];
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-        alert("Translation failed");
-
-    }
-
-}
-
-
-
-function swapLanguages(){
-
-    let sourceLang = document.getElementById("sourceLang");
-
-    let targetLang = document.getElementById("targetLang");
-
-    let inputText = document.getElementById("inputText");
-
-    let outputText = document.getElementById("outputText");
-
-
-
-    // swap language values
-
-    let tempLang = sourceLang.value;
-
-    sourceLang.value = targetLang.value;
-
-    targetLang.value = tempLang;
-
-
-
-    // swap text
-
-    let tempText = inputText.value;
-
-    inputText.value = outputText.value;
-
-    outputText.value = tempText;
-
-}
-
-</script>
+</div>
 
 </body>
+
 </html>
